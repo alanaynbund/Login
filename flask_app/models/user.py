@@ -33,6 +33,17 @@ class User:
         return cls(user_from_db[0])
 
     @classmethod
+    def get_by_email(cls,data):
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        user_from_db = connectToMySQL('loginusers').query_db(query,data)
+        if len(user_from_db) < 1:
+            return False
+
+        return cls(user_from_db[0])
+
+
+
+    @classmethod
     def update(cls,data):
         query = "UPDATE users SET first_name=%(first_name)s, last_name=%(last_name)s, email=%(email)s, updated_at = NOW() WHERE id = %(id)s;"
         return connectToMySQL('loginusers').query_db(query,data)

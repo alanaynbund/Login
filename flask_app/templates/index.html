@@ -11,38 +11,53 @@
 </head>
 
 <body>
-    <div class="container">
-        <form action="/user/register" method="post">
-            <h3>First Name</h3>
-            <input type="text" name="first_name">
-            {%for message in get_flashed_messages(category_filter=['first_name'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            <h3>Last Name</h3>
-            <input type="text" name="last_name">
-            {%for message in get_flashed_messages(category_filter=['last_name'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            <h3>Email</h3>
-            <input type="text" name="email">
-            {%for message in get_flashed_messages(category_filter=['email'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            {%for message in get_flashed_messages(category_filter=['notemail'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            <h3>Password</h3>
-            <input type="text" name="password">
-            {%for message in get_flashed_messages(category_filter=['password'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            <h3>Confirm Password</h3>
-            <input type="text" name="confirm_password">
-            {%for message in get_flashed_messages(category_filter=['confirm_password'])%}
-                <p class="text-danger">{{message}}</p>
-            {%endfor%}
-            <input type="submit" value="Register" class="btn btn-success d-block mt-2">
-        </form>
+    <div class="container d-flex justify-content-between" style="width: 600px;">
+        <div>
+            <form action="/user/register" method="post">
+                <h3>First Name</h3>
+                <input type="text" name="first_name">
+                {%for message in get_flashed_messages(category_filter=['first_name'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <h3>Last Name</h3>
+                <input type="text" name="last_name">
+                {%for message in get_flashed_messages(category_filter=['last_name'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <h3>Email</h3>
+                <input type="text" name="email">
+                {%for message in get_flashed_messages(category_filter=['email'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                {%for message in get_flashed_messages(category_filter=['notemail'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <h3>Password</h3>
+                <input type="text" name="password">
+                {%for message in get_flashed_messages(category_filter=['password'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <h3>Confirm Password</h3>
+                <input type="text" name="confirm_password">
+                {%for message in get_flashed_messages(category_filter=['confirm_password'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <input type="submit" value="Register" class="btn btn-success d-block mt-2">
+            </form>
+        </div>
+        <div>
+            <h1>Login</h1>
+            <form action="/users/login" method="post">
+                <h3>Email:</h3>
+                <input type="text" name="email" id="">
+                {%for message in get_flashed_messages(category_filter=['log'])%}
+                    <p class="text-danger">{{message}}</p>
+                {%endfor%}
+                <h3>Password:</h3>
+                <input type="text" name="password">
+                <input type="submit" value="Login" class="btn btn-success d-block mt-2">
+            </form>
+        </div>
     </div>
 </body>
 

@@ -1,4 +1,4 @@
-from flask import render_template,redirect,request,session
+from flask import render_template,redirect,request,session,flash
 
 from flask_app import app
 
@@ -22,13 +22,42 @@ def create():
         **request.form,
         'password': hashed_pw
     }
-    User.save(data)
+    user_id = User.save(data)
+    session['user_id'] = user_id
     return redirect('/dashboard')
 
 @app.route('/dashboard')
 def dash():
-    return render_template("dashboard.html")
+    if 'user_id' not in session:
+        return redirect("/")
+    
+    #grab the user
+    data = {
+        'id' : session['user_id']
+    }
+    logged_user = User.get_one(data)
+    return render_template("dashboard.html", logged_user=logged_user)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.route('/users/login', methods=['POST'])
+def login():
+    data = {
+        'email': request.form['email']
+    }
+    userdb = User.get_by_email(data)
+    if not userdb:
+        flash("invalid credentials", "log")
+        return redirect("/")
+    
+    if not bcrypt.check_password_hash(userdb.password, request.form['password']):
+        flash("invalid credentials", "log")
+
+    session['user_id'] = userdb.id
+    return redirect('/dashboard')
 
 
 
